@@ -18,4 +18,9 @@ public class HttpPlanetInboundAdapter {
     public String getPlanets() {
         return "Todos os planetas";
     }
+
+    @GetMapping("/{id}")
+    public String getPlanetById(@PathVariable("id") Long id) {
+        return "Planeta" + id;
+    }
 }
