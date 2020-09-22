@@ -16,13 +16,18 @@ public class HttpPlanetInboundAdapter {
         return "Todos os planetas";
     }
 
+    @PostMapping()
+    public String createPlanet() {
+        return "Planeta criado";
+    }
+
     @GetMapping("/{id}")
     public String getPlanetById(@PathVariable("id") Long id) {
         return "Planeta" + id;
     }
 
-    @PostMapping()
-    public String createPlanet() {
-        return "Planeta criado";
+    @DeleteMapping("/{id}")
+    public String deletePlanetById(@PathVariable("id") Long id) {
+        return "Planeta " + id +" removido";
     }
 }
