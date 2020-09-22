@@ -1,5 +1,6 @@
 package com.nathan.swplanets.adapter.inbound;
 
+import com.nathan.swplanets.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/swplanets/v1/planets")
 public class HttpPlanetInboundAdapter {
 
+    @Autowired
+    PlanetService service;
+
     @GetMapping()
-//    public ResponseEntity get() {
-//        return ResponseEntity.ok(service.getCars());
-//    }
-    public String getPlanets() {
-        return "Todos os planetas";
+    public ResponseEntity getPlanets() {
+        return ResponseEntity.ok(service.getPlanets());
     }
 
     @PostMapping()
