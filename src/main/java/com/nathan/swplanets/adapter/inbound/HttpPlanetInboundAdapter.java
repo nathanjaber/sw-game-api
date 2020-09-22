@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/swplanets/v1/planets")
@@ -35,8 +36,11 @@ public class HttpPlanetInboundAdapter {
     }
 
     @GetMapping("/{id}")
-    public String getPlanetById(@PathVariable("id") Long id) {
-        return "Planeta" + id;
+    public ResponseEntity getPlanetById(@PathVariable("id") String id) {
+        Optional<PlanetDTO> planet = service.getPlanetById(id);
+
+        return planet.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")

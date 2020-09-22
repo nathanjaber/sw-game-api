@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,5 +26,9 @@ public class PlanetService {
         Assert.isNull(planet.get_id(), "id not informed");
 
         return PlanetDTO.create(repository.save(planet));
+    }
+
+    public Optional<PlanetDTO> getPlanetById(String id) {
+        return repository.findById(id).map(PlanetDTO::create);
     }
 }
