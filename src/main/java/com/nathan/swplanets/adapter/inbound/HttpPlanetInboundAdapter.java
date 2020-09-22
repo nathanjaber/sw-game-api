@@ -2,10 +2,7 @@ package com.nathan.swplanets.adapter.inbound;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/swplanets/v1/planets")
@@ -22,5 +19,10 @@ public class HttpPlanetInboundAdapter {
     @GetMapping("/{id}")
     public String getPlanetById(@PathVariable("id") Long id) {
         return "Planeta" + id;
+    }
+
+    @PostMapping()
+    public String createPlanet() {
+        return "Planeta criado";
     }
 }
