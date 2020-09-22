@@ -44,8 +44,10 @@ public class HttpPlanetInboundAdapter {
     }
 
     @DeleteMapping("/{id}")
-    public String deletePlanetById(@PathVariable("id") Long id) {
-        return "Planeta " + id +" removido";
+    public ResponseEntity deletePlanetById(@PathVariable("id") String id) {
+        return service.deletePlanetById(id) ?
+                ResponseEntity.ok().build() :
+                ResponseEntity.badRequest().build();
     }
 
     private URI getUri(String id) {

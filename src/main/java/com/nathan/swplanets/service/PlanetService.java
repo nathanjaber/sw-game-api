@@ -31,4 +31,12 @@ public class PlanetService {
     public Optional<PlanetDTO> getPlanetById(String id) {
         return repository.findById(id).map(PlanetDTO::create);
     }
+
+    public boolean deletePlanetById(String id) {
+        if(getPlanetById(id).isPresent()) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
