@@ -31,7 +31,7 @@ public class HttpPlanetInboundAdapter {
     @PostMapping()
     public ResponseEntity createPlanet(@RequestBody Planet planet) {
         try {
-            PlanetDTO newPlanet = service.createPlanet(planet);
+            PlanetDTO newPlanet = this.planetInboundPort.createPlanet(planet);
 
             URI location = getUri(newPlanet.get_id());
             return ResponseEntity.created(location).build();
@@ -42,7 +42,7 @@ public class HttpPlanetInboundAdapter {
 
     @GetMapping("/{id}")
     public ResponseEntity getPlanetById(@PathVariable("id") String id) {
-        Optional<PlanetDTO> planet = service.getPlanetById(id);
+        Optional<PlanetDTO> planet = planetInboundPort.getPlanetById(id);
 
         return planet.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -50,7 +50,7 @@ public class HttpPlanetInboundAdapter {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletePlanetById(@PathVariable("id") String id) {
-        return service.deletePlanetById(id) ?
+        return planetInboundPort.deletePlanetById(id) ?
                 ResponseEntity.ok().build() :
                 ResponseEntity.badRequest().build();
     }
