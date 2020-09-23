@@ -1,0 +1,5 @@
+swapi:
+  api:
+    host: https://swapi.dev/api
+    planet:
+      get: /planets/
