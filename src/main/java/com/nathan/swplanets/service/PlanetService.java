@@ -1,13 +1,14 @@
 package com.nathan.swplanets.service;
 
+import com.nathan.swplanets.domain.GetPlanetByNameResponse;
 import com.nathan.swplanets.domain.Planet;
 import com.nathan.swplanets.domain.PlanetDTO;
+import com.nathan.swplanets.ports.outbound.SwapiOutboundPort;
 import com.nathan.swplanets.repository.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,8 +19,12 @@ public class PlanetService {
     @Autowired
     PlanetRepository repository;
 
-    public List<PlanetDTO> getPlanets() {
-        return repository.findAll().stream().map(PlanetDTO::create).collect(Collectors.toList());
+    @Autowired
+    SwapiOutboundPort swapiOutboundPort;
+
+    public List<PlanetDTO> getPlanets(String name) {
+        return (name == null) ? repository.findAll().stream().map(PlanetDTO::create).collect(Collectors.toList()) :
+                repository.findByName(name);
     }
 
     public PlanetDTO createPlanet(Planet planet) {
@@ -38,5 +43,10 @@ public class PlanetService {
             return true;
         }
         return false;
+    }
+
+//    @Override
+    public GetPlanetByNameResponse swapiplan(String name) {
+        return this.swapiOutboundPort.getPlanetByName(name);
     }
 }
