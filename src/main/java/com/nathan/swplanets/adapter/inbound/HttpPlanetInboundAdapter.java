@@ -25,7 +25,7 @@ public class HttpPlanetInboundAdapter {
 
     @GetMapping()
     public ResponseEntity getPlanets(@RequestParam(value = "name", required = false) String name) {
-        return ResponseEntity.ok(service.getPlanets(name));
+        return ResponseEntity.ok(this.planetInboundPort.getPlanets(name));
     }
 
     @PostMapping()
