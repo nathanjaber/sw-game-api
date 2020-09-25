@@ -1,7 +1,6 @@
 package com.nathan.swplanets.core;
 
 import com.nathan.swplanets.domain.GetPlanetByNameResponse;
-import com.nathan.swplanets.domain.GetPlanetByNameResult;
 import com.nathan.swplanets.domain.Planet;
 import com.nathan.swplanets.domain.PlanetDTO;
 import com.nathan.swplanets.ports.inbound.PlanetInboundPort;
