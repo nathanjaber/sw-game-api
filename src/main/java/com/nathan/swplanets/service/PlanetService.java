@@ -28,7 +28,7 @@ public class PlanetService {
                 this.repository.findByName(name);
     }
 
-    public Planet createPlanet(Planet planet) {
+    public Planet savePlanet(Planet planet) {
         return this.repository.save(planet);
     }
 

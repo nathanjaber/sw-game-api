@@ -25,7 +25,7 @@ public class PlanetCore implements PlanetInboundPort {
 
     @Override
     public PlanetDTO createPlanet(Planet planet) {
-        Planet newPlanet = this.planetService.createPlanet(planet);
+        Planet newPlanet = this.planetService.savePlanet(planet);
         GetPlanetByNameResponse listPlanets = this.planetService.swapiSearchPlanetByName(newPlanet.getName());
 
         String newPlanetName = newPlanet.getName();
@@ -35,7 +35,7 @@ public class PlanetCore implements PlanetInboundPort {
                     newPlanet.setFilms_appearances(result.getFilms().size());
             });
         else newPlanet.setFilms_appearances(0);
-        return PlanetDTO.create(this.planetService.createPlanet(newPlanet));
+        return PlanetDTO.create(this.planetService.savePlanet(newPlanet));
     }
 
     @Override
