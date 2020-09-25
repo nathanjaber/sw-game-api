@@ -1,6 +1,7 @@
 package com.nathan.swplanets.service;
 
 import com.nathan.swplanets.domain.GetPlanetByNameResponse;
+import com.nathan.swplanets.domain.GetPlanetByNameResult;
 import com.nathan.swplanets.domain.Planet;
 import com.nathan.swplanets.domain.PlanetDTO;
 import com.nathan.swplanets.ports.outbound.SwapiOutboundPort;
@@ -29,7 +30,9 @@ public class PlanetService {
 
     public PlanetDTO createPlanet(Planet planet) {
         Assert.isNull(planet.get_id(), "id not informed");
-
+        List<GetPlanetByNameResult> listPlanets = this.swapiOutboundPort.getPlanetByName(planet.getName()).getResults();
+        int filmsApperances = (listPlanets.size() > 0) ? listPlanets.get(0).getFilms().size() : 0;
+        planet.setFilms_appearances(filmsApperances);
         return PlanetDTO.create(repository.save(planet));
     }
 
