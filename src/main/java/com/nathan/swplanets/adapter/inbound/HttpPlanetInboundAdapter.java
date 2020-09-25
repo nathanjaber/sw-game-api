@@ -1,10 +1,8 @@
 package com.nathan.swplanets.adapter.inbound;
 
-import com.nathan.swplanets.domain.GetPlanetByNameResponse;
 import com.nathan.swplanets.domain.Planet;
 import com.nathan.swplanets.domain.PlanetDTO;
 import com.nathan.swplanets.ports.inbound.PlanetInboundPort;
-import com.nathan.swplanets.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +18,6 @@ public class HttpPlanetInboundAdapter {
 
     @Autowired
     PlanetInboundPort planetInboundPort;
-
-    @Autowired
-    PlanetService service;
 
     @GetMapping()
     public ResponseEntity getPlanets(@RequestParam(value = "name", required = false) String name) {
@@ -54,12 +49,6 @@ public class HttpPlanetInboundAdapter {
         return planetInboundPort.deletePlanetById(id) ?
                 ResponseEntity.ok().build() :
                 ResponseEntity.badRequest().build();
-    }
-
-    @GetMapping("/teste")
-    public GetPlanetByNameResponse getPlanetByIda(@RequestParam(value = "name", required = false) String name) {
-        GetPlanetByNameResponse a = this.planetInboundPort.teste(name);
-        return a;
     }
 
     private URI getUri(String id) {

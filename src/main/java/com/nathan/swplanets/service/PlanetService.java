@@ -47,9 +47,4 @@ public class PlanetService {
         }
         return false;
     }
-
-//    @Override
-    public GetPlanetByNameResponse swapiplan(String name) {
-        return this.swapiOutboundPort.getPlanetByName(name);
-    }
 }

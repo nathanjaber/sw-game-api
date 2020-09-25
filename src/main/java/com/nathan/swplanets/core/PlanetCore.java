@@ -17,10 +17,6 @@ public class PlanetCore implements PlanetInboundPort {
     @Autowired
     PlanetService planetService;
 
-    public GetPlanetByNameResponse teste(String name) {
-        return this.planetService.swapiplan(name);
-    }
-
     @Override
     public List<PlanetDTO> getPlanets(String name) {
         return this.planetService.getPlanets(name);
