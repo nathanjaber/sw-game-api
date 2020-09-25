@@ -1,6 +1,7 @@
 package com.nathan.swplanets.core;
 
 import com.nathan.swplanets.domain.GetPlanetByNameResponse;
+import com.nathan.swplanets.domain.GetPlanetByNameResult;
 import com.nathan.swplanets.domain.Planet;
 import com.nathan.swplanets.domain.PlanetDTO;
 import com.nathan.swplanets.ports.inbound.PlanetInboundPort;
@@ -24,7 +25,17 @@ public class PlanetCore implements PlanetInboundPort {
 
     @Override
     public PlanetDTO createPlanet(Planet planet) {
-        return this.planetService.createPlanet(planet);
+        Planet newPlanet = this.planetService.createPlanet(planet);
+        GetPlanetByNameResponse listPlanets = this.planetService.swapiSearchPlanetByName(newPlanet.getName());
+
+        String newPlanetName = newPlanet.getName();
+        if(listPlanets.getCount() > 0)
+            listPlanets.getResults().forEach((result) -> {
+                if(result.getName().equalsIgnoreCase(newPlanetName))
+                    newPlanet.setFilms_appearances(result.getFilms().size());
+            });
+        else newPlanet.setFilms_appearances(0);
+        return PlanetDTO.create(this.planetService.createPlanet(newPlanet));
     }
 
     @Override

@@ -25,15 +25,11 @@ public class PlanetService {
 
     public List<PlanetDTO> getPlanets(String name) {
         return (name == null) ? repository.findAll().stream().map(PlanetDTO::create).collect(Collectors.toList()) :
-                repository.findByName(name);
+                this.repository.findByName(name);
     }
 
-    public PlanetDTO createPlanet(Planet planet) {
-        Assert.isNull(planet.get_id(), "id not informed");
-        List<GetPlanetByNameResult> listPlanets = this.swapiOutboundPort.getPlanetByName(planet.getName()).getResults();
-        int filmsApperances = (listPlanets.size() > 0) ? listPlanets.get(0).getFilms().size() : 0;
-        planet.setFilms_appearances(filmsApperances);
-        return PlanetDTO.create(repository.save(planet));
+    public Planet createPlanet(Planet planet) {
+        return this.repository.save(planet);
     }
 
     public Optional<PlanetDTO> getPlanetById(String id) {
@@ -42,9 +38,13 @@ public class PlanetService {
 
     public boolean deletePlanetById(String id) {
         if(getPlanetById(id).isPresent()) {
-            repository.deleteById(id);
+            this.repository.deleteById(id);
             return true;
         }
         return false;
+    }
+
+    public GetPlanetByNameResponse swapiSearchPlanetByName(String name) {
+        return this.swapiOutboundPort.getPlanetByName(name);
     }
 }
