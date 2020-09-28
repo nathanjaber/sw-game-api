@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +21,7 @@ public class HttpPlanetInboundAdapter {
     PlanetInboundPort planetInboundPort;
 
     @GetMapping()
-    public ResponseEntity getPlanets(@RequestParam(value = "name", required = false) String name) {
+    public ResponseEntity<List<PlanetDTO>> getPlanets(@RequestParam(value = "name", required = false) String name) {
         return ResponseEntity.ok(this.planetInboundPort.getPlanets(name));
     }
 
